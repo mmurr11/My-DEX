@@ -20,6 +20,7 @@ async function listAvailableTokens() {
         chain: 'eth', // The blockchain you want to use (eth/bsc/polygon)
     });
     tokens = result.tokens;
+    console.log(tokens);
     let parent = document.getElementById("token_list");
     for (const address in tokens) {
         let token = tokens[address];
@@ -37,6 +38,25 @@ async function listAvailableTokens() {
     currentTrade.from = tokens['0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee']
     document.getElementById("from_token_img").src = currentTrade.from.logoURI;
     document.getElementById("from_token_text").innerHTML = currentTrade.from.symbol;
+}
+
+async function search() {
+    await listAvailableTokens();
+    var input, filter, table, tr, td, i;
+    input = document.getElementById("searchBar");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("token_list");
+    tr = table.getElementsByClassName("token_row");
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
 }
 
 function selectToken(address) {
@@ -150,4 +170,5 @@ document.getElementById("login_button").onclick = login;
 document.getElementById("from_amount").onblur = getQuote;
 document.getElementById("swap_button").onclick = trySwap;
 
-//f
+
+

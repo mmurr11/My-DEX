@@ -1,11 +1,70 @@
+/*EDITING TEXT AND STUFF*/
+* {
+    color: rgb(255, 255, 255);
+}
+body {
+    /*background-color:#2d2a46;*/
+    font-family: 'Didact Gothic';
+    font-size: 22px;
+    background-image:url("file:///C:/Users/Rae/.vscode/Projects/MY_DEX/dex_background_2.png");
+    background-position:center;
+    background-repeat: no-repeat;
+    background-color: black;
+}
+h4 {
+    /*margin-left: 20px;*/
+    text-align: center;
+}
+#estimated-gas {
+    font-size: 15px;
+    margin-left: 20px;
+}
+/*END OF EDITING TEXT AND STUFF*/
+
+
+
+/*BEGINNING OF NAVBAR*/
+nav {
+    padding: 10px;
+}
+#login_button {
+    font-size: 18px;
+    text-align: right;
+    float: right;
+    padding: 5px 20px 5px 20px;
+    border-radius: 15px;
+    background-color: #0a0b29;
+    box-shadow: 0 0 5px rgb(132, 0, 255);
+    border: 1.5px solid rgba(162, 62, 255, 0.623);
+    transition: 0.1s ease-in;
+}
+#login_button:hover {
+    border: 1.5px solid goldenrod;
+    background-color: goldenrod;
+    box-shadow: 0 0 5px goldenrod;
+}
+/*ENDING OF NAVBAR*/
+
+
+
+/*BEGINNING OF SWAPBOXES*/
 #window{
-    margin-top: 50px;
-    background-color: #000;
-    color: #fff;
+    margin-top: 90px;
+    background-color: #0a0b29;
     padding: 15px;
     border-radius: 20px;
-    box-shadow: 0 0 5px black;
+    box-shadow: 0 0 5px rgb(132, 0, 255);
+    border: 1.5px solid rgba(162, 62, 255, 0.623);
 }
+@media screen 
+  and (min-device-width: 380px) 
+  and (max-device-width: 600px) {
+    #window {
+        margin-left: 100px;
+        width: 1000px;
+    }
+}
+
 .swapbox_select {
     width: 50%;
     float: left;
@@ -14,17 +73,23 @@
     overflow: auto;
     margin: 20px 0;
     padding: 20px;
-    background-color: #2f2f2f;
+    background-color: rgb(27, 28, 58);
     border-radius: 20px;
-    border: 1px solid #565656;
+    border: 1px solid rgba(162, 62, 255, 0.623);
 }
 .token_select{
-    padding:5px 0;
+
+    width: 150px;
+    margin-right: 50px;
+    border: none;
+    border-radius: 5px;
+    transition: 0.1s ease-in;
+    padding: 5px;
+
 }
 .token_select:hover{
-    background-color: #464646;
+    background-color: #879dbd48;
     cursor: pointer;
-    
 }
 .token_list_img, .token_image{
     width: 40px;
@@ -35,10 +100,80 @@
 }
 .token_row{
     padding: 5px 10px;
+    border-radius: 20px;
 }
 .token_row:hover{
     background-color: #e4e4e4;
     cursor: pointer;
 }
+.form-control {
+    background-color: rgb(27, 28, 58);
+    height: 48px;
+    transition: 0.1s ease-in;
+    border: 1.5px solid rgba(162, 62, 255, 0.623);
+}
+.form-control:focus {
+    background-color: rgb(27, 28, 58);
+    border: 1.5px solid rgba(218, 165, 32, 0.726);
+    box-shadow: 0 0 5px rgba(218, 165, 32, 0.664);
+}
 
-/* a
+#swap_button {
+    background-color: rgb(73, 37, 139);
+    color: rgba(255, 255, 255, 0.842);
+    width: 100%;
+    border:none;
+    border-radius: 5px;
+    padding: 6px;
+    transition: 0.1s ease-in;
+
+}
+#swap_button:hover {
+    background-color: rgb(218, 165, 32);
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+}
+#swap_button:active {
+    background-color: rgb(13, 31, 190);
+    color: rgb(207, 207, 207);
+
+}
+/*ENDING OF SWAPBOXES*/
+
+
+
+
+
+/*BEGINNING OF MODAL*/
+.modal-content {
+    background-color: #0a0b29;
+    box-shadow: 0 0 5px rgb(132, 0, 255);
+}
+.token_row:hover {
+    background-color: goldenrod;
+}
+.modal-header {
+    border-bottom: 1.5px solid rgba(162, 62, 255, 0.24);
+}
+/*ENDING OF MODAL*/
+
+/*SCROLLBAR*/
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /*Track*/
+  ::-webkit-scrollbar-track {
+    background: rgba(162, 62, 255, 0.24);
+  }
+
+  /*Handle*/
+  ::-webkit-scrollbar-thumb {
+    background: rgb(132, 0, 255); 
+  }
+
+  /*Handle on hover*/
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(94, 0, 182);
+  }

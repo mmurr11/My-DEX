@@ -1,5 +1,3 @@
-//IF I DONT HAVE THIS FILE IN THE FOLDER IT GIVES ME AN ERROR FOR SOME REASON NOTICE LINES 3,7,9,45,46
-
 Moralis.initialize("yYEXipjSXpFY9OQng7qUN8H2TShhxHeBBmkJsAfY"); // Application id from moralis.io
 Moralis.serverURL = "https://r538ei5humcd.moralishost.com:2053/server"; //Server url from moralis.io
 
@@ -22,6 +20,7 @@ async function listAvailableTokens() {
         chain: 'eth', // The blockchain you want to use (eth/bsc/polygon)
     });
     tokens = result.tokens;
+    console.log(tokens);
     let parent = document.getElementById("token_list");
     for (const address in tokens) {
         let token = tokens[address];
@@ -35,6 +34,28 @@ async function listAvailableTokens() {
         div.innerHTML = html;
         div.onclick = (() => { selectToken(address) });
         parent.appendChild(div);
+    }
+    currentTrade.from = tokens['0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee']
+    document.getElementById("from_token_img").src = currentTrade.from.logoURI;
+    document.getElementById("from_token_text").innerHTML = currentTrade.from.symbol;
+}
+
+async function search() {
+    await listAvailableTokens();
+    var input, filter, table, tr, td, i;
+    input = document.getElementById("searchBar");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("token_list");
+    tr = table.getElementsByClassName("token_row");
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
     }
 }
 
@@ -66,6 +87,7 @@ async function login() {
             currentUser = await Moralis.Web3.authenticate();
         }
         document.getElementById("swap_button").disabled = false;
+        document.getElementById("login_button").style.visibility = "hidden";
     } catch (error) {
         console.log(error);
     }
@@ -147,3 +169,6 @@ document.getElementById("to_token_select").onclick = (() => { openModal("to") })
 document.getElementById("login_button").onclick = login;
 document.getElementById("from_amount").onblur = getQuote;
 document.getElementById("swap_button").onclick = trySwap;
+
+
+
