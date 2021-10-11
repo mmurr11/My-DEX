@@ -40,15 +40,15 @@ async function listAvailableTokens() {
     document.getElementById("from_token_text").innerHTML = currentTrade.from.symbol;
 }
 
-async function search() {
-    await listAvailableTokens();
+function search() {
     var input, filter, table, tr, td, i;
-    input = document.getElementById("searchBar");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("token_list");
-    tr = table.getElementsByClassName("token_row");
+    input = document.querySelector("#searchBar");
+    filter = new String(input.value.toUpperCase());
+    console.log(filter);
+    table = document.querySelector("#token_list");
+    tr = document.getElementsByClassName("token_row");
     for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[0];
+        td = document.querySelector(`#token_list > div:nth-child(${i}) > span`);
         if (td) {
             if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
                 tr[i].style.display = "";
@@ -172,3 +172,8 @@ document.getElementById("swap_button").onclick = trySwap;
 
 
 
+document.querySelector("#token_list")
+document.querySelector("#searchBar")
+document.querySelector("#token_list > div:nth-child(2)")
+document.querySelector("#token_list > div:nth-child(2)")
+document.querySelector("#token_list > div:nth-child(1) > span")

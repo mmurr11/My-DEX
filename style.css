@@ -6,14 +6,15 @@ body {
     /*background-color:#2d2a46;*/
     font-family: 'Didact Gothic';
     font-size: 22px;
-    background-image:url("file:///C:/Users/Rae/.vscode/Projects/MY_DEX/dex_background_2.png");
-    background-position:center;
+    /*background-image:url("https://raw.githubusercontent.com/rreid6260/My-Dex-backgrounds/main/background-final.png");*/
+    background-image: url("https://raw.githubusercontent.com/rreid6260/My-Dex-backgrounds/main/dex_background_2.png");
+    background-position:top;
     background-repeat: no-repeat;
     background-color: black;
 }
 h4 {
-    /*margin-left: 20px;*/
     text-align: center;
+    font-size: 25px;
 }
 #estimated-gas {
     font-size: 15px;
@@ -64,7 +65,6 @@ nav {
         width: 1000px;
     }
 }
-
 .swapbox_select {
     width: 50%;
     float: left;
@@ -77,8 +77,8 @@ nav {
     border-radius: 20px;
     border: 1px solid rgba(162, 62, 255, 0.623);
 }
-.token_select{
 
+.token_select{
     width: 150px;
     margin-right: 50px;
     border: none;
@@ -94,18 +94,7 @@ nav {
 .token_list_img, .token_image{
     width: 40px;
 }
-.modal-body{
-    height: 600px;
-    overflow: scroll;
-}
-.token_row{
-    padding: 5px 10px;
-    border-radius: 20px;
-}
-.token_row:hover{
-    background-color: #e4e4e4;
-    cursor: pointer;
-}
+
 .form-control {
     background-color: rgb(27, 28, 58);
     height: 48px;
@@ -134,7 +123,8 @@ nav {
     cursor: pointer;
 }
 #swap_button:active {
-    background-color: rgb(13, 31, 190);
+    /*background-color: rgb(13, 31, 190);*/
+    background-color: rgb(238, 208, 38);
     color: rgb(207, 207, 207);
 
 }
@@ -155,25 +145,63 @@ nav {
 .modal-header {
     border-bottom: 1.5px solid rgba(162, 62, 255, 0.24);
 }
+.modal-body{
+    height: 600px;
+    overflow: scroll;
+}
+.token_row{
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+.token_row:hover{
+    background-color: #e4e4e4;
+    cursor: pointer;
+}
 /*ENDING OF MODAL*/
 
-/*SCROLLBAR*/
-/* width */
+
+/*BEGINNING OF SEARCH*/
+h5 {
+    padding-top: 7px;
+    margin-left: 5px;
+    font-size: 20px;
+
+}
+#searchBar {
+    color: white;
+    padding: 10px;
+    margin-left: 15px;
+    width: 300px;
+    font-size: 18px;
+}
+#searchBar:active {
+    background-color: rgb(27, 28, 58);
+}
+#searchBar:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+    background-color: rgb(27, 28, 58);
+  -webkit-box-shadow: 0 0 0 1000px rgb(27, 28, 58) inset !important;
+  -webkit-text-fill-color: white !important;
+}
+/*ENDING OF SEARCH*/
+
+
+
+/*BEGINNING OF SCROLLBAR*/
 ::-webkit-scrollbar {
     width: 10px;
-  }
-
-  /*Track*/
-  ::-webkit-scrollbar-track {
+}
+::-webkit-scrollbar-corner {
     background: rgba(162, 62, 255, 0.24);
-  }
-
-  /*Handle*/
-  ::-webkit-scrollbar-thumb {
+}
+::-webkit-scrollbar-track {
+    background: rgba(162, 62, 255, 0.24);
+}
+::-webkit-scrollbar-thumb {
     background: rgb(132, 0, 255); 
-  }
-
-  /*Handle on hover*/
-  ::-webkit-scrollbar-thumb:hover {
+}
+::-webkit-scrollbar-thumb:hover {
     background: rgb(94, 0, 182);
-  }
+}
+/*ENDING OF SCROLLBAR*/

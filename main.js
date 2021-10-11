@@ -20,7 +20,6 @@ async function listAvailableTokens() {
         chain: 'eth', // The blockchain you want to use (eth/bsc/polygon)
     });
     tokens = result.tokens;
-    console.log(tokens);
     let parent = document.getElementById("token_list");
     for (const address in tokens) {
         let token = tokens[address];
@@ -40,18 +39,25 @@ async function listAvailableTokens() {
     document.getElementById("from_token_text").innerHTML = currentTrade.from.symbol;
 }
 
-async function search() {
-    await listAvailableTokens();
+function search() {
     var input, filter, table, tr, td, i;
-    input = document.getElementById("searchBar");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("token_list");
-    tr = table.getElementsByClassName("token_row");
+    input = document.querySelector("#searchBar");
+    filter = new String(input.value.toUpperCase());
+    console.log(filter);
+    table = document.querySelector("#token_list");
+    tr = document.getElementsByClassName("token_row");
     for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[0];
+        td = document.querySelector(`#token_list > div:nth-child(${i}) > span`);
+
         if (td) {
+
             if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                //console.log(td[filter].innerHTML.toUpperCase());
+
                 tr[i].style.display = "";
+                console.log(td[i]);
+                console.log(document.querySelector(`#token_list > div:nth-child(${i})`));
+
             } else {
                 tr[i].style.display = "none";
             }
@@ -172,3 +178,5 @@ document.getElementById("swap_button").onclick = trySwap;
 
 
 
+
+document.querySelector("#token_list > div:nth-child(1)")
