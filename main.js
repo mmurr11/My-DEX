@@ -40,11 +40,10 @@ async function listAvailableTokens() {
 }
 
 function search() {
-    var input, filter, table, tr, td, i;
+    var input, filter, tr, td, i;
     input = document.querySelector("#searchBar");
     filter = new String(input.value.toUpperCase());
     console.log(filter);
-    table = document.querySelector("#token_list");
     tr = document.getElementsByClassName("token_row");
     for (i = 0; i < tr.length; i++) {
         td = document.querySelector(`#token_list > div:nth-child(${i}) > span`);
@@ -52,12 +51,9 @@ function search() {
         if (td) {
 
             if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                //console.log(td[filter].innerHTML.toUpperCase());
-
-                tr[i].style.display = "";
-                console.log(td[i]);
-                console.log(document.querySelector(`#token_list > div:nth-child(${i})`));
-
+                tr[0].style.display = "none";
+                tr[i].style.display = "none";
+                tr[i - 1].style.display = "";
             } else {
                 tr[i].style.display = "none";
             }
@@ -176,7 +172,3 @@ document.getElementById("login_button").onclick = login;
 document.getElementById("from_amount").onblur = getQuote;
 document.getElementById("swap_button").onclick = trySwap;
 
-
-
-
-document.querySelector("#token_list > div:nth-child(1)")
