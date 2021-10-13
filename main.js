@@ -43,24 +43,32 @@ function search() {
     var input, filter, tr, td, i;
     input = document.querySelector("#searchBar");
     filter = new String(input.value.toUpperCase());
-    console.log(filter);
     tr = document.getElementsByClassName("token_row");
-    for (i = 0; i < tr.length; i++) {
+    var arr = Object.keys(tr).map((key) => [Number(key), tr[key]]);
+    //var arr = [].slice.call(tr);
+    console.log(tr[key]);
+    for (i = 0; i < arr.length; i++) {
         td = document.querySelector(`#token_list > div:nth-child(${i}) > span`);
-
         if (td) {
-
-            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                tr[0].style.display = "none";
-                tr[i].style.display = "none";
-                tr[i - 1].style.display = "";
-            } else {
-                tr[i].style.display = "none";
+            let tmp;
+            if (td.innerHTML.toUpperCase().valueOf() == filter.valueOf() && td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                arr[0] = arr[i - 1]
+                arr[0].style.display = "";
+                arr[i].style.display = "none";
+                console.log(arr[0]);
             }
+            if (td.innerHTML.toUpperCase().valueOf() != filter.valueOf() && td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                // console.log(true);
+                arr[i].style.display = "none";
+                arr[i - 1].style.display = "";
+            } else {
+                // console.log(true);
+                arr[i].style.display = "none";
+            }
+
         }
     }
 }
-
 function selectToken(address) {
     closeModal();
     console.log(tokens);
@@ -172,3 +180,4 @@ document.getElementById("login_button").onclick = login;
 document.getElementById("from_amount").onblur = getQuote;
 document.getElementById("swap_button").onclick = trySwap;
 
+//b

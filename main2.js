@@ -20,7 +20,6 @@ async function listAvailableTokens() {
         chain: 'eth', // The blockchain you want to use (eth/bsc/polygon)
     });
     tokens = result.tokens;
-    console.log(tokens);
     let parent = document.getElementById("token_list");
     for (const address in tokens) {
         let token = tokens[address];
@@ -41,24 +40,41 @@ async function listAvailableTokens() {
 }
 
 function search() {
-    var input, filter, table, tr, td, i;
+    var input, filter, tr, td, i;
     input = document.querySelector("#searchBar");
     filter = new String(input.value.toUpperCase());
-    console.log(filter);
-    table = document.querySelector("#token_list");
     tr = document.getElementsByClassName("token_row");
-    for (i = 0; i < tr.length; i++) {
+    //var arr = Object.keys(tr).map((key) => [Number(key), tr[key]]);
+    var arr = [].slice.call(tr);
+    console.log(arr.valueOf());
+    for (i = 0; i < arr.length; i++) {
         td = document.querySelector(`#token_list > div:nth-child(${i}) > span`);
         if (td) {
-            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
+            let tmp = document.querySelector("#token_list > div:nth-child(1)");
+            //console.log(tmp)
+            if (td.innerHTML.toUpperCase().valueOf() == filter.valueOf() && td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                tmp = document.querySelector(`#token_list > div:nth-child(${i})`);
+                console.log(tmp)
+                console.log(arr[0]);
+                arr[0] = tmp
+                console.log(tmp)
+                console.log(arr[0]);
+                //arr[0].style.display = "";
+                arr[i].style.display = "none";
+                console.log(arr[0]);
             }
+            if (td.innerHTML.toUpperCase().valueOf() != filter.valueOf() && td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                // console.log(true);
+                arr[i].style.display = "none";
+                arr[i - 1].style.display = "";
+            } else {
+                // console.log(true);
+                arr[i].style.display = "none";
+            }
+
         }
     }
 }
-
 function selectToken(address) {
     closeModal();
     console.log(tokens);
@@ -170,10 +186,5 @@ document.getElementById("login_button").onclick = login;
 document.getElementById("from_amount").onblur = getQuote;
 document.getElementById("swap_button").onclick = trySwap;
 
-
-
-document.querySelector("#token_list")
-document.querySelector("#searchBar")
-document.querySelector("#token_list > div:nth-child(2)")
-document.querySelector("#token_list > div:nth-child(2)")
-document.querySelector("#token_list > div:nth-child(1) > span")
+document.querySelector("#token_list > div:nth-child(1)")
+document.querySelector("#token_list > div:nth-child(172)")
