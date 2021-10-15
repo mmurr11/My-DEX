@@ -44,23 +44,33 @@ function search() {
     input = document.querySelector("#searchBar");
     filter = new String(input.value.toUpperCase());
     tr = document.getElementsByClassName("token_row");
-    var arr = [].slice.call(tr);
-    for (i = 0; i < arr.length; i++) {
-        td = document.querySelector(`#token_list > div:nth-child(${i}) > span`);
+    //var arr = [].slice.call(tr);
+    for (i = 0; i < tr.length; i++) {
+        td = document.querySelector(`#token_list > div:nth-child(${i}) > span`); // rows in token_list
         if (td) {
-            let tmp = document.querySelector("#token_list > div:nth-child(1)");
-            if (td.innerHTML.toUpperCase().valueOf() == filter.valueOf() && td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                tmp.innerHTML = arr[i - 1].innerHTML
+            let tmp = document.querySelector("#token_list > div:nth-child(1)"); // first row in list
+            const tmp2 = document.querySelector("#token_list > div:nth-child(1)");
+            if (td.innerHTML.toUpperCase().valueOf() == filter.valueOf() && td.innerHTML.toUpperCase().indexOf(filter) > -1) { // if exact match typed 
+                tmp.innerHTML = tr[i - 1].innerHTML
+                tmp.setAttribute("data-address", tr[i - 1].getAttribute("data-address"))
                 tmp.style.display = "";
-            }
-            if (td.innerHTML.toUpperCase().valueOf() != filter.valueOf() && td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                arr[0].style.display = "";
-                arr[i].style.display = "none";
-                arr[i - 1].style.display = "";
-            } else {
-                arr[i].style.display = "none";
+                tr[i].style.display = "none";
+                document.querySelector("#token_list > div:nth-child(1)").onclick = (() => { selectToken(tmp.getAttribute("data-address")) });
+            } else if (filter.valueOf() === "") {
+                //console.log(tmp2.innerHTML)
+                //tmp.innerHTML = tmp2.innerHTML
+                //tmp.setAttribute("data-address", tmp2.getAttribute("data-address"))
+                //tmp.style.display = "none";
+                tmp2.style.display = "";
+                tr[i].style.display = "";
+            } else if (td.innerHTML.toUpperCase().valueOf() != filter.valueOf() && td.innerHTML.toUpperCase().indexOf(filter) > -1) { // lists similar matches
+                tr[i].style.display = "none";
+                tr[i - 1].style.display = "";
+            } else { // all non matches not displayed
+                tr[i].style.display = "none";
             }
         }
+
     }
 }
 
@@ -172,3 +182,5 @@ document.getElementById("to_token_select").onclick = (() => { openModal("to") })
 document.getElementById("login_button").onclick = login;
 document.getElementById("from_amount").onblur = getQuote;
 document.getElementById("swap_button").onclick = trySwap;
+
+
