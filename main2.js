@@ -23,7 +23,7 @@ async function listAvailableTokens() {
     let parent = document.getElementById("token_list");
     for (const address in tokens) {
         let token = tokens[address];
-        let div = document.createElement("div");
+        let div = document.createElement("li");
         div.setAttribute("data-address", address)
         div.className = "token_row";
         let html = `
@@ -39,40 +39,17 @@ async function listAvailableTokens() {
     document.getElementById("from_token_text").innerHTML = currentTrade.from.symbol;
 }
 
-function search() {
-    var input, filter, tr, td, i;
-    input = document.querySelector("#searchBar");
-    filter = new String(input.value.toUpperCase());
-    tr = document.getElementsByClassName("token_row");
-    //var arr = [].slice.call(tr);
-    for (i = 0; i < tr.length; i++) {
-        td = document.querySelector(`#token_list > div:nth-child(${i}) > span`); // rows in token_list
-        if (td) {
-            let tmp = document.querySelector("#token_list > div:nth-child(1)"); // first row in list
-            const tmp2 = document.querySelector("#token_list > div:nth-child(1)");
-            if (td.innerHTML.toUpperCase().valueOf() == filter.valueOf() && td.innerHTML.toUpperCase().indexOf(filter) > -1) { // if exact match typed 
-                tmp.innerHTML = tr[i - 1].innerHTML
-                tmp.setAttribute("data-address", tr[i - 1].getAttribute("data-address"))
-                tmp.style.display = "";
-                tr[i].style.display = "none";
-                document.querySelector("#token_list > div:nth-child(1)").onclick = (() => { selectToken(tmp.getAttribute("data-address")) });
-            } else if (filter.valueOf() === "") {
-                //console.log(tmp2.innerHTML)
-                //tmp.innerHTML = tmp2.innerHTML
-                //tmp.setAttribute("data-address", tmp2.getAttribute("data-address"))
-                //tmp.style.display = "none";
-                tmp2.style.display = "";
-                tr[i].style.display = "";
-            } else if (td.innerHTML.toUpperCase().valueOf() != filter.valueOf() && td.innerHTML.toUpperCase().indexOf(filter) > -1) { // lists similar matches
-                tr[i].style.display = "none";
-                tr[i - 1].style.display = "";
-            } else { // all non matches not displayed
-                tr[i].style.display = "none";
-            }
-        }
+// function search() {
+//     const searchBar = document.querySelector("#searchBar").querySelector("input")
+//     list = document.querySelector("#token_list")
+//     searchBar.addEventListener("keyup", function (e) {
+//         console.log(e.target.value)
+//         const term = e.target.value
+//     })
+// }
 
-    }
-}
+
+
 
 function selectToken(address) {
     closeModal();

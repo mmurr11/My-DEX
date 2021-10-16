@@ -23,7 +23,7 @@ async function listAvailableTokens() {
     let parent = document.getElementById("token_list");
     for (const address in tokens) {
         let token = tokens[address];
-        let div = document.createElement("div");
+        let div = document.createElement("ul");
         div.setAttribute("data-address", address)
         div.className = "token_row";
         let html = `
