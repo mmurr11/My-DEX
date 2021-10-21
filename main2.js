@@ -39,18 +39,6 @@ async function listAvailableTokens() {
     document.getElementById("from_token_text").innerHTML = currentTrade.from.symbol;
 }
 
-// function search() {
-//     const searchBar = document.querySelector("#searchBar").querySelector("input")
-//     list = document.querySelector("#token_list")
-//     searchBar.addEventListener("keyup", function (e) {
-//         console.log(e.target.value)
-//         const term = e.target.value
-//     })
-// }
-
-
-
-
 function selectToken(address) {
     closeModal();
     currentTrade[currentSelectSide] = tokens[address];
@@ -104,7 +92,6 @@ async function getQuote() {
         toTokenAddress: currentTrade.to.address, // The token you want to receive
         amount: amount,
     })
-    console.log(quote);
     document.getElementById("gas_estimate").innerHTML = quote.estimatedGas;
     document.getElementById("to_amount").value = quote.toTokenAmount / (10 ** quote.toToken.decimals)
 }
@@ -159,5 +146,3 @@ document.getElementById("to_token_select").onclick = (() => { openModal("to") })
 document.getElementById("login_button").onclick = login;
 document.getElementById("from_amount").onblur = getQuote;
 document.getElementById("swap_button").onclick = trySwap;
-
-

@@ -23,7 +23,7 @@ async function listAvailableTokens() {
     let parent = document.getElementById("token_list");
     for (const address in tokens) {
         let token = tokens[address];
-        let div = document.createElement("ul");
+        let div = document.createElement("li");
         div.setAttribute("data-address", address)
         div.className = "token_row";
         let html = `
@@ -37,32 +37,6 @@ async function listAvailableTokens() {
     currentTrade.from = tokens['0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee']
     document.getElementById("from_token_img").src = currentTrade.from.logoURI;
     document.getElementById("from_token_text").innerHTML = currentTrade.from.symbol;
-}
-
-function search() {
-    var input, filter, tr, td, i;
-    input = document.querySelector("#searchBar");
-    filter = new String(input.value.toUpperCase());
-    tr = document.getElementsByClassName("token_row");
-    for (i = 0; i < tr.length; i++) {
-        td = document.querySelector(`#token_list > div:nth-child(${i}) > span`); // rows in token_list
-        if (td) {
-            if (filter.valueOf() === "") {
-                tr[i].style.display = "";
-            } else if (td.innerHTML.toUpperCase().valueOf() == filter.valueOf() && td.innerHTML.toUpperCase().indexOf(filter) > -1) { // if exact match typed                 
-                tr[0].innerHTML = tr[i - 1].innerHTML
-                tr[0].setAttribute("data-address", tr[i - 1].getAttribute("data-address"))
-                tr[0].style.display = "";
-                tr[i].style.display = "none";
-                document.querySelector("#token_list > div:nth-child(1)").onclick = (() => { selectToken(tr[0].getAttribute("data-address")) });
-            } else if (td.innerHTML.toUpperCase().valueOf() != filter.valueOf() && td.innerHTML.toUpperCase().indexOf(filter) > -1) { // lists similar matches
-                tr[i].style.display = "none";
-                tr[i - 1].style.display = "";
-            } else { // all non matches not displayed
-                tr[i].style.display = "none";
-            }
-        }
-    }
 }
 
 function selectToken(address) {
@@ -118,7 +92,6 @@ async function getQuote() {
         toTokenAddress: currentTrade.to.address, // The token you want to receive
         amount: amount,
     })
-    console.log(quote);
     document.getElementById("gas_estimate").innerHTML = quote.estimatedGas;
     document.getElementById("to_amount").value = quote.toTokenAmount / (10 ** quote.toToken.decimals)
 }
@@ -173,9 +146,19 @@ document.getElementById("to_token_select").onclick = (() => { openModal("to") })
 document.getElementById("login_button").onclick = login;
 document.getElementById("from_amount").onblur = getQuote;
 document.getElementById("swap_button").onclick = trySwap;
+window.onclick = function (event) {
 
+    if (event.target != document.getElementsById()) {
 
-var tmp1 = `<div data-address="0x006bea43baa3f7a6f765f14f10a1a1b08334ef45" class="token_row">
-<img class="token_list_img" src="https://tokens.1inch.io/0x006bea43baa3f7a6f765f14f10a1a1b08334ef45.png">
-<span class="token_list_text">STX</span>
-</div>`
+        images_modal.style.display = "none";
+
+    }
+
+    if (event.target == videos_modal) {
+
+        videos_modal.style.display = "none";
+
+    }
+
+}
+
