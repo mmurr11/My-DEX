@@ -9,29 +9,47 @@ document.addEventListener('DOMContentLoaded', function () {
     xhr2.open("GET", 'https://community-api.coinmetrics.io/v4/timeseries/asset-metrics?assets=btc&metrics=FlowOutExNtv', true);
     xhr3.open("GET", 'https://community-api.coinmetrics.io/v4/timeseries/asset-metrics?assets=eth&metrics=FlowInExNtv', true);
     xhr4.open("GET", 'https://community-api.coinmetrics.io/v4/timeseries/asset-metrics?assets=eth&metrics=FlowOutExNtv', true);
-    var todaysBtcInflow, todaysBtcOutflow, todaysEthInflow, todaysEthOutflow;
-    let netFlows = new Array;
+    var todaysBtcInflow = new Array
+    var todaysBtcOutflow = new Array
+    var todaysEthInflow = new Array
+    var todaysEthOutflow = new Array
+    let netFlows = new Array
     xhr1.onload = function () {
         if (this.status === 200) {
             let obj = JSON.parse(this.responseText);
             let data = obj['data']
             let mostRecentSnippet = data[99]
-            todaysBtcInflow = mostRecentSnippet['FlowInExNtv']
-            netFlows.push(todaysBtcInflow)
-            console.log(`Btc in ${todaysBtcInflow}`)
+            console.log(obj.data[99].FlowInExNtv)
+            if (mostRecentSnippet) {
+                todaysBtcInflow[0] = Number(mostRecentSnippet['FlowInExNtv']);
+            } else {
+                setTimeout(this, 300); // try again in 300 milliseconds
+                console.log('trying again')
+            }
         }
         else {
             console.log("File not found");
         }
     }
+
     xhr2.onload = function () {
         if (this.status === 200) {
             let obj = JSON.parse(this.responseText);
             let data = obj['data']
             let mostRecentSnippet = data[99]
-            todaysBtcOutflow = mostRecentSnippet['FlowOutExNtv']
-            netFlows.push(todaysBtcOutflow)
-            console.log(`Btc out ${todaysBtcOutflow}`)
+            if (mostRecentSnippet) {
+                todaysBtcOutflow[0] = Number(mostRecentSnippet['FlowOutExNtv']);
+            } else {
+                setTimeout(this, 300); // try again in 300 milliseconds
+                console.log('trying again')
+            }
+            let btcNetFlow = todaysBtcInflow[0] - todaysBtcOutflow[0]
+            if (btcNetFlow && todaysBtcOutflow[0] != NaN) {
+                netFlows[0] = `BTC net flow: ${btcNetFlow}`;
+                console.log(netFlows)
+            } else {
+                setTimeout(this, 300); // try again in 300 milliseconds
+            }
         }
         else {
             console.log("File not found");
@@ -42,9 +60,12 @@ document.addEventListener('DOMContentLoaded', function () {
             let obj = JSON.parse(this.responseText);
             let data = obj['data']
             let mostRecentSnippet = data[99]
-            todaysEthInflow = mostRecentSnippet['FlowInExNtv']
-            netFlows.push(todaysEthInflow)
-            console.log(`Eth in ${todaysEthInflow}`)
+            if (mostRecentSnippet) {
+                todaysEthInflow[0] = Number(mostRecentSnippet['FlowInExNtv']);
+            } else {
+                setTimeout(this, 300); // try again in 300 milliseconds
+                console.log('trying again')
+            }
         }
         else {
             console.log("File not found");
@@ -55,16 +76,26 @@ document.addEventListener('DOMContentLoaded', function () {
             let obj = JSON.parse(this.responseText);
             let data = obj['data']
             let mostRecentSnippet = data[99]
-            todaysEthOutflow = mostRecentSnippet['FlowOutExNtv']
-            netFlows.push(todaysEthOutflow)
-            console.log(`Eth out ${todaysEthOutflow}`)
+            if (mostRecentSnippet) {
+                todaysEthOutflow[0] = Number(mostRecentSnippet['FlowOutExNtv']);
+            } else {
+                setTimeout(this, 300); // try again in 300 milliseconds
+                console.log('trying again')
+            }
+            let ethNetFlow = todaysEthInflow[0] - todaysEthOutflow[0]
+            if (ethNetFlow && todaysEthOutflow[0] != NaN) {
+                netFlows[1] = `ETH net flow: ${ethNetFlow}`;
+                console.log(netFlows)
+            } else {
+                setTimeout(this, 300); // try again in 300 milliseconds
+            }
         }
         else {
             console.log("File not found");
         }
     }
 
-    console.log(netFlows)
+
     netFlows.forEach(metric => {
         let div = document.createElement('li')
         div.className = "metric_row";

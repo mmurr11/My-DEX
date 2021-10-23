@@ -205,3 +205,14 @@ select:-webkit-autofill {
     background: rgb(94, 0, 182);
 }
 /*ENDING OF SCROLLBAR*/
+
+
+#price_ticker {
+    bottom: 0;
+    float: bottom;
+    margin-top: 373px;
+    color:#e4e4e4;
+}
+.cg-marquee-content-1 {
+    color:#e4e4e4;
+}
