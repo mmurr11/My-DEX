@@ -1,6 +1,6 @@
 const list = document.getElementById('metric_list') // where metrics will be appended
 
-// flow in/out of exchanges ex. coinbase, binance, etc. for bitcoin and ethereum
+// flow in/out of exchanges ex. coinbase, binance, etc. for bitcoin and ethereum, subtract to get net flow
 async function btcFlow() {
     try {
         const btcInUrl = `https://community-api.coinmetrics.io/v4/timeseries/asset-metrics?assets=btc&metrics=FlowInExNtv`
@@ -12,19 +12,12 @@ async function btcFlow() {
         ])
         const data = await Promise.all(results.map(result => result.json()))
         const finalData = data[0].data[99].FlowInExNtv - data[1].data[99].FlowOutExNtv // data[0] is inflow, [1] is outflow
-
-        // subtract outflow from inflow then append result to metric list
-
-        let div = document.createElement('li')
-        div.className = "metric_row";
-        let html = `
-            <span class='token_list_text'> BTC exchange netflow: ${finalData}</span>
-            `
-        div.innerHTML = html;
-        list.appendChild(div)
+        const htmlFriendly = `BTC net flow: ${finalData}`
+        return htmlFriendly
     }
     catch (err) {
-        console.error('error')
+        const htmlFriendlyError = "Sorry, there was an error getting BTC net flow"
+        return htmlFriendlyError
     }
 }
 
@@ -39,24 +32,16 @@ async function ethFlow() {
         ])
         const data = await Promise.all(results.map(result => result.json()))
         const finalData = data[0].data[99].FlowInExNtv - data[1].data[99].FlowOutExNtv // data[0] is inflow, [1] is outflow
-
-        // subtract outflow from inflow then append result to metric list
-
-        let div = document.createElement('li')
-        div.className = "metric_row";
-        let html = `
-            <span class='token_list_text'> ETH exchange netflow: ${finalData}</span>
-            `
-        div.innerHTML = html;
-        list.appendChild(div)
-
+        const htmlFriendly = `ETH net flow: ${finalData}`
+        return htmlFriendly
     }
     catch (err) {
-        console.error('error')
+        const htmlFriendlyError = "Sorry, there was an error getting ETH net flow"
+        return htmlFriendlyError
     }
 }
 
-// Mining hash rates for btc and eth
+// Mining hash rates for btc and eth, subtract to get month over month growth of rates
 async function btcHashRateMonthOverMonth() {
     try {
         const btcHashRateUrl = `https://community-api.coinmetrics.io/v4/timeseries/asset-metrics?assets=btc&metrics=HashRate`
@@ -64,20 +49,12 @@ async function btcHashRateMonthOverMonth() {
         const result = await fetch(btcHashRateUrl)
         const btcData = await result.json()
         const monthOverMonthHashRate = btcData.data[99].HashRate - btcData.data[69].HashRate // data[99] is today's hash rate, [69] is 30 days ago
-
-        // subtract hash rate of 30 days ago from today's then htmlify
-
-        let div = document.createElement('li')
-        div.className = "metric_row";
-        let html = `
-            <span class='token_list_text'> BTC hash rate MoM: ${monthOverMonthHashRate} TH</span>
-            `
-        div.innerHTML = html;
-        list.appendChild(div)
-
+        const htmlFriendly = `BTC hash rate MoM: ${monthOverMonthHashRate}`
+        return htmlFriendly
     }
     catch (err) {
-        console.error('error')
+        const htmlFriendlyError = "Sorry, there was an error getting BTC hash rate"
+        return htmlFriendlyError
     }
 }
 
@@ -88,24 +65,33 @@ async function ethHashRateMonthOverMonth() {
         const result = await fetch(ethHashRateUrl)
         const ethData = await result.json()
         const monthOverMonthHashRate = ethData.data[99].HashRate - ethData.data[69].HashRate // data[99] is today's hash rate, [69] is 30 days ago
-
-        // subtract hash rate of 30 days ago from today's then htmlify
-
-        let div = document.createElement('li')
-        div.className = "metric_row";
-        let html = `
-            <span class='token_list_text'> ETH hash rate MoM: ${monthOverMonthHashRate} TH</span>
-            `
-        div.innerHTML = html;
-        list.appendChild(div)
-
+        const htmlFriendly = `ETH hash rate MoM: ${monthOverMonthHashRate}`
+        return htmlFriendly
     }
     catch (err) {
-        console.error('error')
+        const htmlFriendlyError = "Sorry, there was an error getting ETH hash rate"
+        return htmlFriendlyError
     }
 }
 
-btcHashRateMonthOverMonth()
-ethHashRateMonthOverMonth()
-btcFlow()
-ethFlow()
+// await each previous metric grabbing function then parse into html
+async function htmlify() {
+    const results = await Promise.all([
+        btcFlow(),
+        ethFlow(),
+        btcHashRateMonthOverMonth(),
+        ethHashRateMonthOverMonth()
+    ])
+    const data = await Promise.all(results)
+    data.forEach(metric => {
+        let div = document.createElement('li')
+        div.className = "metric_row";
+        let html = `
+            <span class='metric_list_text'>${metric}</span>
+            `
+        div.innerHTML = html;
+        list.appendChild(div)
+    })
+}
+
+htmlify()
