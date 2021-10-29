@@ -21,7 +21,7 @@ async function listAvailableTokens() {
         chain: 'eth', // The blockchain you want to use (eth/bsc/polygon)
     });
     tokens = result.tokens;
-    let parent = $("#token_list");
+    let parent = document.getElementById("token_list");
     for (const address in tokens) {
         let token = tokens[address];
         let div = document.createElement("li");
@@ -36,8 +36,8 @@ async function listAvailableTokens() {
         parent.appendChild(div);
     }
     currentTrade.from = tokens['0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee']
-    $("#from_token_img").src = currentTrade.from.logoURI;
-    $("#from_token_text").innerHTML = currentTrade.from.symbol;
+    document.getElementById("from_token_img").src = currentTrade.from.logoURI;
+    document.getElementById("from_token_text").innerHTML = currentTrade.from.symbol;
 }
 
 function selectToken(address) {
@@ -49,12 +49,12 @@ function selectToken(address) {
 
 function renderInterface() {
     if (currentTrade.from) {
-        $("#from_token_img").src = currentTrade.from.logoURI;
-        $("#from_token_text").innerHTML = currentTrade.from.symbol;
+        document.getElementById("from_token_img").src = currentTrade.from.logoURI;
+        document.getElementById("from_token_text").innerHTML = currentTrade.from.symbol;
     }
     if (currentTrade.to) {
-        $("#to_token_img").src = currentTrade.to.logoURI;
-        $("#to_token_text").innerHTML = currentTrade.to.symbol;
+        document.getElementById("to_token_img").src = currentTrade.to.logoURI;
+        document.getElementById("to_token_text").innerHTML = currentTrade.to.symbol;
     }
 }
 
@@ -95,8 +95,8 @@ async function getQuote() {
             toTokenAddress: currentTrade.to.address, // The token you want to receive
             amount: amount,
         })
-        $("#gas_estimate").innerHTML = quote.estimatedGas;
-        $("#to_amount").value = quote.toTokenAmount / (10 ** quote.toToken.decimals)
+        document.getElementById("gas_estimate").innerHTML = quote.estimatedGas;
+        document.getElementById("to_amount").value = quote.toTokenAmount / (10 ** quote.toToken.decimals)
     } else if (document.getElementById("to_amount").value && !document.getElementById("from_amount").value) {
         console.log(true)
         let amount = Number(
@@ -167,8 +167,8 @@ async function trySwap() {
     }
     try {
         let receipt = await doSwap(address, amount);
+        console.log(receipt)
         alert("Swap Complete");
-
     } catch (error) {
         console.log(error);
     }
@@ -189,7 +189,7 @@ function doSwap(userAddress, amount) {
 init();
 
 $("#modal_close").click(closeModal);
-$(".modal-content").mouseleave(closeModal);
+$(".modalcontent").mouseleave(closeModal);
 $("#from_token_select").click((() => { openModal("from") }));
 $("#to_token_select").click((() => { openModal("to") }));
 $("#from_amount").blur(getQuote);
