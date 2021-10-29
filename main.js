@@ -1,11 +1,12 @@
-Moralis.initialize("yYEXipjSXpFY9OQng7qUN8H2TShhxHeBBmkJsAfY"); // Application id from moralis.io
-Moralis.serverURL = "https://r538ei5humcd.moralishost.com:2053/server"; //Server url from moralis.io
+// decentralized exchange through 1inch
 
 let currentTrade = {};
 let currentSelectSide;
 let tokens;
 
 async function init() {
+    await Moralis.initialize("yYEXipjSXpFY9OQng7qUN8H2TShhxHeBBmkJsAfY"); // Application id from moralis.io
+    Moralis.serverURL = "https://r538ei5humcd.moralishost.com:2053/server"; //Server url from moralis.io
     await Moralis.initPlugins();
     await Moralis.enable();
     await listAvailableTokens();
@@ -64,8 +65,9 @@ async function login() {
         if (!currentUser) {
             currentUser = await Moralis.Web3.authenticate();
         }
-        document.getElementById("swap_button").disabled = false;
-        document.getElementById("login_button").style.visibility = "hidden";
+        $("#swap_button").prop("disabled", false);
+        $("#login_button").html(`<img id="ethLogo" src=https://tokens.1inch.io/0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee.png />
+                    <span id="chainName">Connected</span>`)
     } catch (error) {
         console.log(error);
     }
@@ -80,21 +82,67 @@ function closeModal() {
 }
 
 async function getQuote() {
-    if (!currentTrade.from || !currentTrade.to || !document.getElementById("from_amount").value) return;
+    if (!currentTrade.from || !currentTrade.to) return;
+    else if (document.getElementById("from_amount").value && !document.getElementById("to_amount").value) {
+        console.log(true)
+        let amount = Number(
+            document.getElementById("from_amount").value * 10 ** currentTrade.from.decimals
+        )
 
-    let amount = Number(
-        document.getElementById("from_amount").value * 10 ** currentTrade.from.decimals
-    )
+        const quote = await Moralis.Plugins.oneInch.quote({
+            chain: 'eth', // The blockchain you want to use (eth/bsc/polygon)
+            fromTokenAddress: currentTrade.from.address, // The token you want to swap
+            toTokenAddress: currentTrade.to.address, // The token you want to receive
+            amount: amount,
+        })
+        document.getElementById("gas_estimate").innerHTML = quote.estimatedGas;
+        document.getElementById("to_amount").value = quote.toTokenAmount / (10 ** quote.toToken.decimals)
+    } else if (document.getElementById("to_amount").value && !document.getElementById("from_amount").value) {
+        console.log(true)
+        let amount = Number(
+            document.getElementById("to_amount").value * 10 ** currentTrade.to.decimals
+        )
 
-    const quote = await Moralis.Plugins.oneInch.quote({
-        chain: 'eth', // The blockchain you want to use (eth/bsc/polygon)
-        fromTokenAddress: currentTrade.from.address, // The token you want to swap
-        toTokenAddress: currentTrade.to.address, // The token you want to receive
-        amount: amount,
-    })
-    document.getElementById("gas_estimate").innerHTML = quote.estimatedGas;
-    document.getElementById("to_amount").value = quote.toTokenAmount / (10 ** quote.toToken.decimals)
+        const quote = await Moralis.Plugins.oneInch.quote({
+            chain: 'eth', // The blockchain you want to use (eth/bsc/polygon)
+            fromTokenAddress: currentTrade.to.address, // The token you want to swap
+            toTokenAddress: currentTrade.from.address, // The token you want to receive
+            amount: amount,
+        })
+        document.getElementById("gas_estimate").innerHTML = quote.estimatedGas;
+        document.getElementById("from_amount").value = quote.toTokenAmount / (10 ** quote.toToken.decimals)
+    }
 }
+function searchBar() {
+    document.addEventListener('DOMContentLoaded', function () {
+
+        const list = document.querySelector("#token_list")
+        const forms = document.forms;
+
+        // filter tokens
+        const searchBar = forms['search-tokens'].querySelector('input'); // line 63 index.html
+        searchBar.addEventListener('keyup', (e) => {
+            const term = e.target.value.toUpperCase();
+            const tokens = list.getElementsByTagName('li');
+            const arr = Array.from(tokens)
+            arr.forEach((token) => {
+                const title = token.lastElementChild.textContent; // token's name
+                let tmp;
+                if (title === term) {
+                    tmp = token.nextElementSibling // store sibling after exact match token to insert token before if not exact match anymore
+                    list.insertBefore(token, list.firstElementChild) // exact match listed before arr[0] appears at top of list
+                } else if (title.toUpperCase().indexOf(term) != -1) {
+                    list.insertBefore(token, tmp)
+                    token.style.display = "";
+                }
+                else {
+                    token.style.display = 'none';
+                }
+            });
+        });
+    })
+}
+searchBar()
 
 async function trySwap() {
     let address = Moralis.User.current().get("ethAddress");
@@ -140,9 +188,10 @@ function doSwap(userAddress, amount) {
 
 init();
 
-document.getElementById("modal_close").onclick = closeModal;
-document.getElementById("from_token_select").onclick = (() => { openModal("from") });
-document.getElementById("to_token_select").onclick = (() => { openModal("to") });
-document.getElementById("login_button").onclick = login;
-document.getElementById("from_amount").onblur = getQuote;
-document.getElementById("swap_button").onclick = trySwap;
+$("#modal_close").click(closeModal);
+$("#from_token_select").click((() => { openModal("from") }));
+$("#to_token_select").click((() => { openModal("to") }));
+$("#from_amount").blur(getQuote);
+$("#to_amount").blur(getQuote);
+$("#swap_button").click(trySwap);
+$('#login_button').click(login);

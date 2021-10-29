@@ -1,4 +1,4 @@
-const list = document.getElementById('metric_list') // where metrics will be appended
+// get token metrics from API calls
 
 // flow in/out of exchanges ex. coinbase, binance, etc. for bitcoin and ethereum, subtract to get net flow
 async function btcFlow() {
@@ -84,6 +84,7 @@ async function htmlify() {
     ])
     const data = await Promise.all(results)
     data.forEach(metric => {
+        const list = document.getElementById('metric_list') // where metrics will be appended
         let div = document.createElement('li')
         div.className = "metric_row";
         let html = `
