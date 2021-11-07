@@ -88,4 +88,4 @@ async function htmlify() {
     })
 }
 
-htmlify()
+htmlify();
