@@ -142,7 +142,7 @@ function searchBar() {
         });
     })
 }
-searchBar()
+searchBar();
 
 async function trySwap() {
     let address = Moralis.User.current().get("ethAddress");
