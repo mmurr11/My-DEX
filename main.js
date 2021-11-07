@@ -1,4 +1,4 @@
-// decentralized exchange through 1inch
+// decentralized exchange through 1inch Moralis plugin
 
 let currentTrade = {};
 let currentSelectSide;
@@ -186,10 +186,11 @@ function doSwap(userAddress, amount) {
     });
 }
 
+
 init();
 
 $("#modal_close").click(closeModal);
-$(".modalcontent").mouseleave(closeModal);
+$(".modal-content").mouseleave(closeModal);
 $("#from_token_select").click((() => { openModal("from") }));
 $("#to_token_select").click((() => { openModal("to") }));
 $("#from_amount").blur(getQuote);

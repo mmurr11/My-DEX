@@ -1,10 +1,10 @@
 /*EDITING TEXT AND STUFF*/
 * {
     color: rgb(255, 255, 255);
+    font-family: 'Didact Gothic';
 }
 body {
     /*background-color:#2d2a46;*/
-    font-family: 'Didact Gothic';
     font-size: 22px;
     /*background-image:url("https://raw.githubusercontent.com/rreid6260/My-Dex-backgrounds/main/background-final.png");*/
     background-image: url("https://raw.githubusercontent.com/rreid6260/My-Dex-backgrounds/main/dex_background_2.png");
@@ -27,8 +27,12 @@ h4 {
 /*BEGINNING OF NAVBAR*/
 nav {
     padding: 10px;
+    
+}
+#symbol {
 }
 #login_button {
+    margin-top: -40px;
     font-size: 18px;
     text-align: right;
     float: right;
@@ -38,19 +42,27 @@ nav {
     box-shadow: 0 0 5px rgb(132, 0, 255);
     border: 1.5px solid rgba(162, 62, 255, 0.623);
     transition: 0.1s ease-in;
+    top:0;
 }
 #login_button:hover {
     border: 1.5px solid goldenrod;
     background-color: goldenrod;
     box-shadow: 0 0 5px goldenrod;
 }
-/*ENDING OF NAVBAR*/
-
+    /*CONNECTED*/
+#ethLogo {
+    width: 25px;
+    height: auto;
+    margin-top: -3px;
+    margin-left: -3px;
+    text-align: center;
+}
+/*ENDING OF NAVBAR*/ 
 
 
 /*BEGINNING OF SWAPBOXES*/
-#window{
-    margin-top: 90px;
+#swap-window {
+    margin-top: 30px;
     background-color: #0a0b29;
     padding: 15px;
     border-radius: 20px;
@@ -60,7 +72,7 @@ nav {
 @media screen 
   and (min-device-width: 380px) 
   and (max-device-width: 600px) {
-    #window {
+    #swap-window {
         margin-left: 100px;
         width: 1000px;
     }
@@ -69,6 +81,7 @@ nav {
     width: 50%;
     float: left;
 }
+
 .swapbox{
     overflow: auto;
     margin: 20px 0;
@@ -84,12 +97,13 @@ nav {
     border: none;
     border-radius: 5px;
     transition: 0.1s ease-in;
-    padding: 5px;
+    padding: 10px;
 
 }
 .token_select:hover{
     background-color: #879dbd48;
     cursor: pointer;
+    box-shadow: 0px 0px 3px #879dbd48;
 }
 .token_list_img, .token_image{
     width: 40px;
@@ -100,11 +114,13 @@ nav {
     height: 48px;
     transition: 0.1s ease-in;
     border: 1.5px solid rgba(162, 62, 255, 0.623);
+    color: rgba(255, 255, 255, 0.644);
 }
 .form-control:focus {
     background-color: rgb(27, 28, 58);
     border: 1.5px solid rgba(218, 165, 32, 0.726);
     box-shadow: 0 0 5px rgba(218, 165, 32, 0.664);
+    color: rgba(255, 255, 255, 0.644);
 }
 
 #swap_button {
@@ -156,6 +172,13 @@ nav {
 .token_row:hover{
     background-color: #e4e4e4;
     cursor: pointer;
+    background-color: rgb(27, 28, 58);
+    border: none;
+    border-radius: 10px;
+}
+#token_list {
+    list-style: none;
+    margin-left: -50px;
 }
 /*ENDING OF MODAL*/
 
@@ -167,17 +190,21 @@ h5 {
     font-size: 20px;
 
 }
-#searchBar {
-    color: white;
+#search-tokens input{
+    background-color: rgb(27, 28, 58);
     padding: 10px;
     margin-left: 15px;
     width: 300px;
     font-size: 18px;
+    border: 1.5px solid rgba(162, 62, 255, 0.623);
+    border-radius: 15px;
+    color: rgba(255, 255, 255, 0.644);
+
 }
-#searchBar:active {
+#search-tokens input:active {
     background-color: rgb(27, 28, 58);
 }
-#searchBar:-webkit-autofill,
+#search-tokens input:-webkit-autofill,
 textarea:-webkit-autofill,
 select:-webkit-autofill {
     background-color: rgb(27, 28, 58);
@@ -185,7 +212,6 @@ select:-webkit-autofill {
   -webkit-text-fill-color: white !important;
 }
 /*ENDING OF SEARCH*/
-
 
 
 /*BEGINNING OF SCROLLBAR*/
@@ -207,12 +233,48 @@ select:-webkit-autofill {
 /*ENDING OF SCROLLBAR*/
 
 
+
+
+/*BEGINNING OF METRIC LIST*/
+#metrics_window {
+    margin-top: 30px;
+    background-color: #0a0b29;
+    padding: 15px;
+    border-radius: 20px;
+    box-shadow: 0 0 5px rgb(132, 0, 255);
+    border: 1.5px solid rgba(162, 62, 255, 0.623);
+}
+
+#metric_list {
+    list-style: none;
+}
+#metric_list li{
+    margin: 20px 0px;
+    padding: 10px;
+    background-color: rgb(27, 28, 58);
+    border-radius: 15px;
+    border: 1px solid rgba(162, 62, 255, 0.623);
+    margin-left: -30px;
+    letter-spacing: 0.7px;
+    font-size: 20px;
+}
+/*ENDING OF METRIC LIST*/
+
+
+
+
+/*BEGINNING OF PRICE TICKER*/
 #price_ticker {
+    position: fixed;
     bottom: 0;
-    float: bottom;
-    margin-top: 373px;
     color:#e4e4e4;
 }
 .cg-marquee-content-1 {
     color:#e4e4e4;
+}
+/*ENDING OF PRICE TICKER*/
+
+/* news */
+.cg-container>* {
+    background-color: red !important;
 }

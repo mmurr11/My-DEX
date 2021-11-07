@@ -84,14 +84,7 @@ async function htmlify() {
     ])
     const data = await Promise.all(results)
     data.forEach(metric => {
-        const list = document.getElementById('metric_list') // where metrics will be appended
-        let div = document.createElement('li')
-        div.className = "metric_row";
-        let html = `
-            <span class='metric_list_text'>${metric}</span>
-            `
-        div.innerHTML = html;
-        list.appendChild(div)
+        $('#metric_list').append(`<li><span class='metric_list_text'>${metric}</span></li>`); // create LIs filled with spans of metrics then append to metric list
     })
 }
 

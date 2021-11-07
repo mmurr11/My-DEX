@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>My DEX</title>
+    <title>hubbel</title>
     <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -21,12 +21,13 @@
 
 <body>
     <nav>
-        <button id="login_button" type="submit">Connect a Wallet</button>
+        <h3 id='symbol'><strong>hubbel</strong></h3>
+        <button id="login_button" type="submit"><strong>Connect a Wallet</strong></button>
     </nav>
     <div class="container">
         <div class="row">
-            <div class="col col-md-6 offset-md-3" id="window">
-                <h4>Swap Box</h4>
+            <div class="window col col-md-6 offset-md-3" id="swap-window">
+                <h4><strong>Swap</strong></h4>
                 <div id="form">
                     <div class="swapbox">
                         <div class="swapbox_select token_select" id="from_token_select">
@@ -47,8 +48,8 @@
                         </div>
                     </div>
                     <div id="estimated-gas">Estimated Gas: <span id="gas_estimate"></span></div>
-                    <button disabled id="swap_button">
-                        Swap
+                    <button disabled id="swap_button"><strong>
+                            Swap</strong>
                     </button>
                 </div>
             </div>
@@ -56,8 +57,8 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col col-md-6 offset-md-3" id="metrics_window">
-                <h4>Metrics</h4>
+            <div class="window col col-md-6 offset-md-3" id="metrics_window">
+                <h4><strong>Metrics</strong></h4>
                 <div id="metric_list_body">
                     <ul id="metric_list">
                     </ul>
@@ -65,6 +66,11 @@
             </div>
         </div>
     </div>
+    <!-- <div class="window col col-md-6 offset-md-3" id="newsWidget">
+        <script src="https://widgets.coingecko.com/coingecko-beam-widget.js"></script>
+        <coingecko-beam-widget type="all" height="300" locale="en"></coingecko-beam-widget>
+        </coingecko-beam-widget>
+    </div> -->
     <div class="modal" id="token_modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -89,15 +95,15 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="./main.js"></script>
+    <script type="text/javascript" src="./demo.main.js"></script>
     <script type="text/javascript" src="./metrics.js"></script>
 </body>
 <footer>
     <div id='price_ticker'>
-        <!-- <script src="https://widgets.coingecko.com/coingecko-coin-price-marquee-widget.js"></script>
+        <script src="https://widgets.coingecko.com/coingecko-coin-price-marquee-widget.js"></script>
         <coingecko-coin-price-marquee-widget
             coin-ids="bitcoin,ethereum,internet-computer,binancecoin,cardano,dogecoin,chainlink,uniswap" currency="usd"
-            background-color="#0a0b29" locale="en" text-decoration=></coingecko-coin-price-marquee-widget> -->
+            background-color="#0a0b29" locale="en" text-decoration=></coingecko-coin-price-marquee-widget>
     </div>
 </footer>
 
