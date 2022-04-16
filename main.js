@@ -5,9 +5,9 @@ let currentTrade = {};
 let currentSelectSide;
 let tokens;
 
+Moralis.start({ SERVER_URL, APPLICATION_ID });
+
 async function init() {
-  await Moralis.initialize(APPLICATION_ID); // Application id from moralis.io
-  Moralis.serverURL = SERVER_URL; //Server url from moralis.io
   await Moralis.initPlugins();
   await Moralis.enable();
   await listAvailableTokens();
